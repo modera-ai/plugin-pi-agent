@@ -1,0 +1,24 @@
+{
+  "apiVersion": 1,
+  "activationScope": "global",
+  "id": "modera.pi-agent",
+  "name": "Pi Agent Core",
+  "version": "0.1.0",
+  "description": "Pi Agent Core with Modera model, tools and context management.",
+  "locales": {
+    "zh-CN": {
+      "name": "Pi Agent 运行时",
+      "description": "接入上游 Pi Agent Core，使用 Modera 的模型、工具与上下文管理。"
+    }
+  },
+  "main": "dist/index.cjs",
+  "permissions": [],
+  "provides": {
+    "modera.pi-agent.runtime": {
+      "contract": "modera.agent.runtime",
+      "apiVersion": 1,
+      "transport": "reference"
+    }
+  },
+  "contributions": ["promptPolicy", "services"]
+}

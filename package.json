@@ -1,0 +1,38 @@
+{
+  "name": "@modera-plugin/pi-agent",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Pi Agent Core runtime adapter for Modera.",
+  "files": [
+    "plugin.json",
+    "dist",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "scripts": {
+    "build": "modera-plugin-build .",
+    "pack": "modera-plugin pack .",
+    "dev": "node tools/modera-dev.mjs",
+    "test": "vitest run",
+    "test:integration": "node tools/test-host.mjs",
+    "test:package": "node --test tests/packaged-runtime.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@earendil-works/pi-agent-core": "1.1.0",
+    "@earendil-works/pi-ai": "1.1.0"
+  },
+  "devDependencies": {
+    "@modera/contracts": "file:vendor/modera-contracts-0.1.0.tgz",
+    "@modera/plugin-build": "file:vendor/modera-plugin-build-0.1.0.tgz",
+    "@modera/plugin-sdk": "file:vendor/modera-plugin-sdk-0.1.0.tgz",
+    "@types/node": "^22.0.0",
+    "esbuild": "0.25.12",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=22.22.2"
+  },
+  "license": "MIT"
+}
