@@ -470,16 +470,8 @@ export class PiAgentRuntime implements AgentRuntime {
       await pause();
       budget.check(++step, consumed);
       const sections =
-        (await dependencies.collectPromptSections?.(request)) ?? [];
+        (await dependencies.collectPromptSections?.({ ...request, availableToolIds: (dependencies.executor?.definitions(request) ?? request.tools).map(tool => tool.id) })) ?? [];
       tools = dependencies.executor?.definitions(request) ?? request.tools;
-      const guidance = dependencies.executor?.guidance(request) ?? [];
-      const sources =
-        dependencies.executor?.guidanceSources?.(request) ??
-        guidance.map((text, index) => ({
-          owner: "runtime",
-          text,
-          id: `guidance:${index}`,
-        }));
       const blocks: PromptDocumentBlock[] = [
         {
           owner: "modera.pi-agent",
@@ -487,17 +479,10 @@ export class PiAgentRuntime implements AgentRuntime {
           kind: "base",
           text: BASE_SYSTEM_POLICY,
         },
-        ...sources.map((item) => ({
-          owner: item.owner,
-          id: "id" in item ? String(item.id) : "agentGuidance",
-          kind: "guidance" as const,
-          source: "plugin.json",
-          text: item.text,
-        })),
         ...sections.map((item) => ({
           ...item,
           kind:
-            item.owner === "host" ? ("runtime" as const) : ("project" as const),
+            item.owner === "host" ? ("runtime" as const) : ("guidance" as const),
         })),
       ];
       const transformed = await dependencies.transformPromptDocument?.(
@@ -506,7 +491,6 @@ export class PiAgentRuntime implements AgentRuntime {
       );
       const messages = withSystemPolicy(
         history,
-        guidance,
         sections,
         transformed ? serializePromptDocument(transformed) : undefined,
       );

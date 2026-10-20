@@ -40,9 +40,7 @@ const tool: ToolDefinition = {
 function executor() {
   const execute = vi.fn(async () => "host result");
   const port: AgentToolExecutor = {
-    definitions: () => [tool],
-    guidance: () => [],
-    title: () => "Probe",
+    definitions: () => [tool],    title: () => "Probe",
     execute,
     completedCall: () => ({
       images: [{ mimeType: "image/png", data: "YWJj" }],

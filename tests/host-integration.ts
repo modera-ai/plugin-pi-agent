@@ -84,9 +84,7 @@ test("compiled Pi plugin runs through the host reference service and retains che
             inputSchema: { type: "object", properties: {} },
             requiredPermissions: [],
           },
-        ],
-        guidance: () => [],
-        title: () => "Probe",
+        ],        title: () => "Probe",
         completedCall: () => undefined,
         execute: async () => {
           executions++;

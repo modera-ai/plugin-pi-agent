@@ -20,5 +20,11 @@
       "transport": "reference"
     }
   },
-  "contributions": ["promptPolicy", "services"]
+  "contributions": [
+    "promptPolicy",
+    "services"
+  ],
+  "requiresHost": {
+    "plugin.promptSections": 1
+  }
 }
